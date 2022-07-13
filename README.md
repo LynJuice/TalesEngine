@@ -1,22 +1,36 @@
 # TalesEngine
+A custom made engine. (More of a FrameWork than an Engine)
+Works Crossplatform with Windows 10/11 Linux (Untested for MacOS)
 
-A custom made engine.
-
-## Installation
-
+## Setup
 Just clone the project install the required vcpkg packages and you are good to go!
+you may need to update CmakeLists.txt file to fit you.
+
+  
 
 ### Install needed VCPKG packages
 ```bash
-sudo vcpkg install glfw3
-sudo vcpkg install glm
-sudo vcpkg install glad
-sudo vcpkg install stb
-sudo vcpkg install assimp
-sudo vcpkg install nlohmann-json
-sudo vcpkg install imgui
+vcpkg install glfw3
+vcpkg install glm
+vcpkg install glad
+vcpkg install stb
+vcpkg install assimp
+vcpkg install nlohmann-json
+vcpkg install imgui
 ```
 
+## How to build
+
+```bash
+# cd into the build folder
+cd /build
+# Run CMake on CMakeLists.txt (you can skip this step if you didn't change the CMake file)
+cmake ../src/CMakeLists.txt
+# build
+make
+```
+  
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
