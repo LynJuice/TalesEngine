@@ -16,7 +16,7 @@ vcpkg install glad
 vcpkg install stb
 vcpkg install assimp
 vcpkg install nlohmann-json
-vcpkg install imgui
+vcpkg install imgui[docking-experimental,glfw-binding,opengl3-binding] # Its required to to have glfw-binding and opengl3-binding while docking-experimental is optional, but there may be errors without it.
 ```
 
 ## How to build

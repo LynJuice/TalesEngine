@@ -28,12 +28,10 @@ public:
     Shader(const char* ShaderFile);
     ~Shader();
     void Use();
-
+    GLuint ID;
 private:
     std::string readfile(const char* filename);
     void compile(unsigned int shader, const char* type);
-
-    GLuint ID;
 };
 
 Shader::Shader(const char* ShaderFile)

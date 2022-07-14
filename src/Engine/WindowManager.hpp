@@ -46,13 +46,18 @@ class WindowManager
             std::cout <<"Failed to Initialize GLAD \n";
         }   
         glViewport(0, 0, width, height);
+
+        glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+            glViewport(0, 0, width, height);
+        });
+
         glfwSwapInterval(0);
-//        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_DEPTH_TEST);
 //        glEnable(GL_CULL_FACE);
-//        glEnable(GL_MULTISAMPLE);
+        glEnable(GL_MULTISAMPLE);
 //        glCullFace(GL_BACK);
-//        glEnable(GL_BLEND);
-//        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     }
     /**
      * @brief WindowManager destructor

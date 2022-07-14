@@ -40,12 +40,6 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 15,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 1,
 				"line" : 19,
 				"parent" : 0
 			},
@@ -59,6 +53,12 @@
 				"command" : 2,
 				"file" : 1,
 				"line" : 27,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 15,
 				"parent" : 0
 			},
 			{
@@ -125,21 +125,16 @@
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "/usr/lib/x86_64-linux-gnu/libglfw.so.3.3",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 4,
 				"fragment" : "/opt/vcpkg/installed/x64-linux/debug/lib/libglad.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 5,
+				"backtrace" : 4,
 				"fragment" : "/opt/vcpkg/installed/x64-linux/debug/lib/libassimpd.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 6,
+				"backtrace" : 5,
 				"fragment" : "/opt/vcpkg/installed/x64-linux/debug/lib/libimguid.a",
 				"role" : "libraries"
 			},
@@ -166,6 +161,11 @@
 			{
 				"fragment" : "/usr/lib/x86_64-linux-gnu/librt.a",
 				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "/usr/lib/x86_64-linux-gnu/libglfw.so.3.3",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
@@ -191,7 +191,8 @@
 			"sourceIndexes" : 
 			[
 				1,
-				2
+				2,
+				3
 			]
 		}
 	],
@@ -211,6 +212,11 @@
 		{
 			"backtrace" : 2,
 			"path" : "Engine/Shader.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"path" : "Engine/Objects/GameObject.hpp",
 			"sourceGroupIndex" : 1
 		}
 	],

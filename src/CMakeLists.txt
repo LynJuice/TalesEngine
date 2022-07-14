@@ -7,7 +7,7 @@ add_executable(${PROJECT_NAME}
 main.cpp
 Engine/WindowManager.hpp
 Engine/Shader.hpp
-)
+Engine/Objects/GameObject.hpp)
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 
