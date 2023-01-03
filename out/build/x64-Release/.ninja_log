@@ -1,0 +1,12 @@
+# ninja log v5
+8	336	6944752736217065	CMakeFiles/TalesEngine.dir/src/Window.cpp.obj	23fdfd6bc8efdc15
+727	786	6944537948571136	STB_IMAGE.lib	2ef70e0313f73492
+15	366	6944842091121352	CMakeFiles/TalesEngine.dir/src/Model/Texture.cpp.obj	9e043b0cd629d04e
+12	490	6944906201018340	CMakeFiles/TalesEngine.dir/src/Camera.cpp.obj	aa73aefd98bea3d
+24	759	6944881620168389	CMakeFiles/TalesEngine.dir/src/Model/Transform.cpp.obj	de700c168f2fb3c8
+30	810	6944537948795679	CMakeFiles/TalesEngine.dir/src/Model/Shader.cpp.obj	6f0a250c27813989
+50	726	6944537947927191	CMakeFiles/STB_IMAGE.dir/thirdparty/stb_image.cpp.obj	d56d9bb029225817
+16	822	6944881620806363	CMakeFiles/TalesEngine.dir/src/Model/Mesh.cpp.obj	11119c00e967b141
+13	871	6944905452187508	CMakeFiles/TalesEngine.dir/TalesEngine.cpp.obj	223c5b804650cd85
+20	999	6944881622588767	CMakeFiles/TalesEngine.dir/src/Model/Model.cpp.obj	defea508d58026d3
+491	1080	6944906202570201	TalesEngine.exe	8041cce8f38d2df4
