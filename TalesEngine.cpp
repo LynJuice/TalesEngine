@@ -1,19 +1,25 @@
 ﻿#include "TalesEngine.h"
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
 
 Window window(1920 / 2, 1080 / 2, "TalesEngine");
 Camera camera(window.window);
 
 Shader shader("assets/shaders/vertexShader.glsl", "assets/shaders/fragmentShader.glsl");
 Model Skybox("assets/models/SkyBox.fbx");
-Model Scene("assets/models/scene.fbx");
+
+Model CubeA("assets/models/Box.fbx");
+Model CubeB("assets/models/Box.fbx");
+Model CubeC("assets/models/Box.fbx");
 
 int main()
 {	
-	Scene.transformation.Rotate(glm::vec3(-90, 0, 60+180+90));
 	Skybox.transformation.Rotate(glm::vec3(-90, 0, 0));
+	
+	CubeA.transformation.Translate(glm::vec3(0, 1, 3));
+	CubeA.transformation.Rotate(glm::vec3(0, 45, 0));
+	CubeB.transformation.Translate(glm::vec3(0, 1, 5.5f));
+	CubeB.transformation.Rotate(glm::vec3(0, -25, 0));
+	CubeC.transformation.Translate(glm::vec3(0, 3, 4.25));
+	CubeC.transformation.Rotate(glm::vec3(0, 15, 0));
 	
 	double deltaTime = 0.0f;
 	double lastFrame = 0.0f;
@@ -23,6 +29,9 @@ int main()
 	glEnable(GL_MULTISAMPLE);
 	glCullFace(GL_BACK);
 		
+	shader.SetVec3("lightPos", glm::vec3(5, 3, 7));
+	shader.SetVec3("viewPos", camera.cameraPos);
+	
 	while (!glfwWindowShouldClose(window.window))
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -39,7 +48,9 @@ int main()
 		glfwSetWindowTitle(window.window, ("TalesEngine - FPS: " + std::to_string(fps)).c_str());
 		
 		Skybox.Draw(shader, window, camera);
-		Scene.Draw(shader, window, camera);
+		CubeA.Draw(shader, window, camera);
+		CubeB.Draw(shader, window, camera);
+		CubeC.Draw(shader, window, camera);
 		
 		glfwSwapBuffers(window.window);
 		glfwPollEvents();

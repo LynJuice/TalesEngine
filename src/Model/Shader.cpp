@@ -23,7 +23,7 @@ std::string Shader::ReadShaderFile(const char* shaderPath)
 	return shaderCode.c_str();
 }
 
-Shader::Shader(const char* vertexPath = "assets/shaders/vertexShader.glsl", const char* fragmentPath = "assets/shaders/fragmentShader.glsl")
+Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
 	std::string vertexShaderCode = ReadShaderFile(vertexPath);
 	std::string fragmentShaderCode = ReadShaderFile(fragmentPath);
@@ -75,4 +75,52 @@ Shader::Shader(const char* vertexPath = "assets/shaders/vertexShader.glsl", cons
 Shader::~Shader()
 {
 	glDeleteProgram(shaderProgram);
+}
+
+bool Shader::SetInt(const char* name, int value)
+{
+	int location = glGetUniformLocation(shaderProgram, name);
+	if (location == -1)
+	{
+		std::cout << "ERROR::SHADER::UNIFORM::INT::NOT_FOUND" << std::endl;
+		return false;
+	}
+	glUniform1i(location, value);
+	return true;
+}
+
+bool Shader::SetFloat(const char* name, float value)
+{
+	int location = glGetUniformLocation(shaderProgram, name);
+	if (location == -1)
+	{
+		std::cout << "ERROR::SHADER::UNIFORM::FLOAT::NOT_FOUND" << std::endl;
+		return false;
+	}
+	glUniform1f(location, value);
+	return true;
+}
+
+bool Shader::SetVec3(const char* name, glm::vec3 value)
+{
+	int location = glGetUniformLocation(shaderProgram, name);
+	if (location == -1)
+	{
+		std::cout << "ERROR::SHADER::UNIFORM::VEC3::NOT_FOUND" << std::endl;
+		return false;
+	}
+	glUniform3f(location, value.x, value.y, value.z);
+	return true;
+}
+
+bool Shader::SetMat4(const char* name, glm::mat4 value)
+{
+	int location = glGetUniformLocation(shaderProgram, name);
+	if (location == -1)
+	{
+		std::cout << "ERROR::SHADER::UNIFORM::MAT4::NOT_FOUND" << std::endl;
+		return false;
+	}
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+	return true;
 }

@@ -2,6 +2,8 @@
 #include "Mesh.h"
 #include "Shader.h"
 
+#include <iostream>
+#include <future>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -13,6 +15,7 @@ class Model
 public:
 	Model(char* path)
 	{
+		std::cout << "Loading: " << path << std::endl;
 		loadModel(path);
 	}
 	void Draw(Shader& shader, Window& window,Camera& camera);

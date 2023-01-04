@@ -1,6 +1,8 @@
 # Todo List
 
 - Move transformation from Model To Mesh, such that each mesh has its own transformation matrix, while the model has a global transformation.
+- Model
+	- Load Model Async
 - Animation
 	- Add support for multiple animations
 	- Add support for animation blending
@@ -12,3 +14,7 @@
 	- Add support for multiple scenes
 	- Add support for multiple cameras
 	- Add support for multiple lights
+- Lighting
+	- Add support for multiple lights
+	- Add support for light attenuation
+	- Add support for light shadows

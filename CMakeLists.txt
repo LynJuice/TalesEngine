@@ -92,3 +92,13 @@ include_directories(
 
 # Link libraries to executables
 target_link_libraries(${PROJECT_NAME} ${LIBS})
+
+# --------------------------------------------------- Assimp Settings -----------------------------------------------------
+set(ASSIMP_NO_EXPORT ON CACHE BOOL "")
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "")
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "")
+set(ASSIMP_INSTALL_PDB OFF CACHE BOOL "")
+set(  ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT OFF CACHE BOOL "")
+set(ASSIMP_BUILD_OBJ_IMPORTER ON CACHE BOOL "")
+set(ASSIMP_BUILD_GLTF_IMPORTER ON CACHE BOOL "")
+set(ASSIMP_BUILD_FBX_IMPORTER ON CACHE BOOL "")

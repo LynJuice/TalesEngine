@@ -11,6 +11,7 @@ public:
 	Camera(GLFWwindow* window);
 	void Update(GLFWwindow* window);
 	glm::mat4 GetView();
+	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 private:
 	glm::mat4 view = glm::mat4(1.0f);
 };

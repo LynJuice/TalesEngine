@@ -2,16 +2,14 @@
 
 void Model::loadModel(std::string path)
 {
-    Assimp::Importer import;
-    const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
-
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
-        std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
+        std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
         return;
     }
     directory = path.substr(0, path.find_last_of('/'));
-
     processNode(scene->mRootNode, scene);
 }
 
@@ -86,7 +84,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     // Same applies to other texture as the following list summarizes:
     // diffuse: texture_diffuseN
     // specular: texture_specularN
-    // normal: texture_normalN
 
     // 1. diffuse maps
 	std::vector<TextureData> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
@@ -97,7 +94,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
    
     // return a mesh object created from the extracted mesh data
     return Mesh(vertices, indices, textures);
-
 }
 
 std::vector<TextureData> Model::loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName)
@@ -133,6 +129,6 @@ std::vector<TextureData> Model::loadMaterialTextures(aiMaterial* material, aiTex
 void Model::Draw(Shader& shader, Window& window,Camera& camera)
 {
     transformation.Update(window);
-	for (GLuint i = 0; i < meshes.size(); i++)
-	    meshes[i].Draw(shader, transformation,camera);
+    for (GLuint i = 0; i < meshes.size(); i++)
+        meshes[i].Draw(shader, transformation, camera);
 }
