@@ -15,6 +15,7 @@
 	- Add support for multiple cameras
 	- Add support for multiple lights
 - Lighting
+	- ~~Add simple lights~~
 	- Add support for multiple lights
 	- Add support for light attenuation
 	- Add support for light shadows

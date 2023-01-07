@@ -13,13 +13,15 @@
 class Model
 {
 public:
-	Model(char* path)
+	Model(const char* path)
 	{
 		std::cout << "Loading: " << path << std::endl;
+		this->path = path;
 		loadModel(path);
 	}
 	void Draw(Shader& shader, Window& window,Camera& camera);
 
+	const char* path;
 	Transform transformation = Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 private:
 	std::vector<TextureData> textures_loaded;

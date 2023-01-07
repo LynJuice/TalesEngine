@@ -20,6 +20,8 @@ public:
 	bool SetFloat(const char* name, float value);
 	bool SetVec3(const char* name, glm::vec3 value);
 	bool SetMat4(const char* name, glm::mat4 value);
+	const char* vertexPath;
+	const char* fragmentPath;
 	
 	
 

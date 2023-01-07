@@ -10,22 +10,6 @@ void Transform::Translate(glm::vec3 Position)
 	model = glm::translate(model, Position);
 }
 
-void Transform::SetRotation(float x, float y, float z)
-{
-	glm::mat4 rotation = glm::mat4(1.0f);
-	rotation = glm::rotate(rotation, glm::radians(x), glm::vec3(1, 0, 0));	
-	rotation = glm::rotate(rotation, glm::radians(y), glm::vec3(0, 1, 0));
-	rotation = glm::rotate(rotation, glm::radians(z), glm::vec3(0, 0, 1));
-	model = rotation;
-}
-void Transform::SetRotation(glm::vec3 Rotation)
-{
-	glm::mat4 rotation = glm::mat4(1.0f);
-	rotation = glm::rotate(rotation, glm::radians(Rotation.x), glm::vec3(1, 0, 0));
-	rotation = glm::rotate(rotation, glm::radians(Rotation.y), glm::vec3(0, 1, 0));
-	rotation = glm::rotate(rotation, glm::radians(Rotation.z), glm::vec3(0, 0, 1));
-	model = rotation;
-}
 void Transform::Rotate(float x, float y, float z)
 {
 	model = glm::rotate(model, glm::radians(x), glm::vec3(1.0f, 0.0f, 0.0f));

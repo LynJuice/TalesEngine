@@ -10,18 +10,12 @@ public:
 	Transform(glm::vec3 Positon, glm::vec3 Rotation, glm::vec3 Scale);
 	void Update(Window& window);
 	
-	void SetRotation(float x, float y, float z);
-	void SetRotation(glm::vec3 Rotation);
 	void Rotate(float x, float y, float z);
 	void Rotate(glm::vec3 Rotation);
 
-	void SetPosition(float x, float y, float z);
-	void SetPosition(glm::vec3 Position);
 	void Translate(float x, float y, float z);
 	void Translate(glm::vec3 Position);
 
-	void SetScale(float x, float y, float z);
-	void SetScale(glm::vec3 Scale);
 	void Scale(float x, float y, float z);
 	void Scale(glm::vec3 Scale);
 

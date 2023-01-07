@@ -25,6 +25,8 @@ std::string Shader::ReadShaderFile(const char* shaderPath)
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
+	this->vertexPath = vertexPath;
+	this->fragmentPath = fragmentPath;
 	std::string vertexShaderCode = ReadShaderFile(vertexPath);
 	std::string fragmentShaderCode = ReadShaderFile(fragmentPath);
 	const char* vertexShaderSource = vertexShaderCode.c_str();

@@ -14,7 +14,6 @@ float specularStrength = 0.5;
 
 void main()
 {
-    
     vec3 ambient = ambientStrenght * vec3(1.0, 1.0, 1.0);
 
     vec3 norm = normalize(Normal);
