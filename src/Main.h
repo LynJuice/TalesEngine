@@ -5,11 +5,12 @@
 
 #include "Graphics/Shader.h"
 #include "Graphics/Display.h"
+
 #include "Graphics/3D/Camera.h"
 #include "Graphics/3D/Model.h"
-#include "Graphics/2D/Camera2D.h"
-#include "Graphics/2D/SpriteRenderer.h"
-#include "Graphics/2D/Texture2D.h"
+
+#include "Graphics/2D/Sprite.h"
+
 #include "Sound/SoundDevice.h"
 #include "Sound/SoundSource.h"
 #include "Sound/SoundBuffer.h"
@@ -37,9 +38,7 @@ Model Testmodel("models/AE86.fbx");
 
 // 2D Graphics
 Shader shader2D("default2D");
-Camera2D camera2D(SCR_WIDTH, SCR_HEIGHT);
-SpriteRenderer spriteRenderer(shader2D);
-Texture2D texture;
+Sprite sprite("textures/Crosshair.png");
 
 // Sound
 SoundSource speaker;

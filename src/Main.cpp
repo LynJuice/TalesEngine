@@ -84,9 +84,6 @@ void init()
     glCullFace(GL_BACK);
 
     Testmodel.Rotate(-90, glm::vec3(1, 0, 0));
-
-    // 2D Graphics
-    texture.Generate(10,10, texture.LoadTextureFromFile("textures/container.jpg",0));
 }
 
 // Update the application
@@ -109,15 +106,14 @@ void update()
     // render
     // -----
     glClearColor(0.0f, 0.3f, 0.5f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     Testmodel.Draw(shader, proj, view);
 
-    shader2D.use();
-	shader2D.setMat4("projection", camera2D.projection);
+    glClear(GL_DEPTH_BUFFER_BIT);
 
-
-    spriteRenderer.DrawSprite(texture, glm::vec2(0, 0), glm::vec2(1, 1), 45, glm::vec3(1, 1, 1));
+    //sprite.SetTexture("textures/Trim2_roughness.png");
+    sprite.Render();
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     // -------------------------------------------------------------------------------
