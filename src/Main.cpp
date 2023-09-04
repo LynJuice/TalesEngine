@@ -83,7 +83,6 @@ void init()
 
     glCullFace(GL_BACK);
 
-
     Testmodel.Rotate(-90, glm::vec3(1, 0, 0));
 
     // 2D Graphics

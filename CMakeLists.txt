@@ -1,16 +1,43 @@
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 cmake_minimum_required(VERSION 3.12)
 project(TalesEngine)
 
 set(CMAKE_CXX_STANDARD 17)
 
 # TalesEngine Source Code
-file(GLOB TalesEngine_SRC "src/*.h" "src/*.cpp")
-file(GLOB TalesEngine_Graphics_Src "src/Graphics/2D/*.h" "src/Graphics/2D/*.cpp" "src/Graphics/3D/*.h" "src/Graphics/3D/*.cpp" "src/Graphics/*.h" "src/Graphics/*.cpp")
-file(GLOB TalesEngine_Sound_SRC "src/Sound/*.h" "src/Sound/*.cpp")
+file(GLOB TalesEngine_SRC_H "src/*.h")
+file(GLOB TalesEngine_SRC_CPP "src/*.cpp")
+
+file(GLOB TalesEngine_Graphics_Src_H "src/Graphics/*.h")
+file(GLOB TalesEngine_Graphics_Src_CPP "src/Graphics/*.cpp")
+
+file(GLOB TalesEngine_Graphics_3D_Src_H "src/Graphics/3D/*.h")
+file(GLOB TalesEngine_Graphics_3D_Src_CPP "src/Graphics/3D/*.cpp")
+
+file(GLOB TalesEngine_Graphics_2D_Src_H "src/Graphics/2D/*.h")
+file(GLOB TalesEngine_Graphics_2D_Src_CPP "src/Graphics/2D/*.cpp")
+
+file(GLOB TalesEngine_Sound_SRC_H "src/Sound/*.h")
+file(GLOB TalesEngine_Sound_SRC_CPP "src/Sound/*.cpp")
+
 file(GLOB TalesEngine_Includes include/sndFile/sndfile.h include/glad.c include/stb_image.h )
 
+source_group("Header Files\\Graphics" FILES ${TalesEngine_Graphics_Src_H})
+source_group("Source Files\\Graphics" FILES ${TalesEngine_Graphics_Src_CPP})
+source_group("Header Files\\Graphics\\3D" FILES ${TalesEngine_Graphics_3D_Src_H})
+source_group("Source Files\\Graphics\\3D" FILES ${TalesEngine_Graphics_3D_Src_CPP})
+source_group("Header Files\\Graphics\\2D" FILES ${TalesEngine_Graphics_2D_Src_H})
+source_group("Source Files\\Graphics\\2D" FILES ${TalesEngine_Graphics_2D_Src_CPP})
+source_group("Header Files\\Sound" FILES ${TalesEngine_Sound_SRC_H})
+source_group("Source Files\\Sound" FILES ${TalesEngine_Sound_SRC_CPP})
+source_group("Header Files" FILES ${TalesEngine_SRC_H})
+source_group("Source Files" FILES ${TalesEngine_SRC_CPP})
+source_group("Includes" FILES ${TalesEngine_Includes})
+
+
 #add the executable
-add_executable(TalesEngine ${TalesEngine_Includes} ${TalesEngine_SRC} ${TalesEngine_Graphics_Src} ${TalesEngine_Sound_SRC})
+add_executable(TalesEngine ${TalesEngine_Includes} ${TalesEngine_SRC_H} ${TalesEngine_SRC_CPP} ${TalesEngine_Graphics_Src_H} ${TalesEngine_Graphics_Src_CPP} ${TalesEngine_Sound_SRC_H} ${TalesEngine_Sound_SRC_CPP} ${TalesEngine_Graphics_3D_Src_H} ${TalesEngine_Graphics_3D_Src_CPP} ${TalesEngine_Graphics_2D_Src_H} ${TalesEngine_Graphics_2D_Src_CPP})
+
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT TalesEngine)
 include_directories(${CMAKE_SOURCE_DIR}/include)
