@@ -1,104 +1,39 @@
-﻿cmake_minimum_required(VERSION 3.8.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.12)
 project(TalesEngine)
 
-#   Adds the source files to the project
-file(GLOB_RECURSE SOURCE_FILES
-    #Insert Source folders here
-    ${CMAKE_SOURCE_DIR}/TalesEngine.cpp
-    ${CMAKE_SOURCE_DIR}/src/*.cpp  
-)
+set(CMAKE_CXX_STANDARD 17)
 
-#   Adds the header files to the project
-file(GLOB_RECURSE HEADER_FILES
-    #Insert Header folders here
-    ${CMAKE_SOURCE_DIR}/TalesEngine.h
-    ${CMAKE_SOURCE_DIR}/src/*.h
-)
+# TalesEngine Source Code
+file(GLOB TalesEngine_SRC "src/*.h" "src/*.cpp")
+file(GLOB TalesEngine_Graphics_Src "src/Graphics/2D/*.h" "src/Graphics/2D/*.cpp" "src/Graphics/3D/*.h" "src/Graphics/3D/*.cpp" "src/Graphics/*.h" "src/Graphics/*.cpp")
+file(GLOB TalesEngine_Sound_SRC "src/Sound/*.h" "src/Sound/*.cpp")
+file(GLOB TalesEngine_Includes include/sndFile/sndfile.h include/glad.c include/stb_image.h )
 
-# Add .lib files to the project
-link_directories(${CMAKE_SOURCE_DIR}/lib)
+#add the executable
+add_executable(TalesEngine ${TalesEngine_Includes} ${TalesEngine_SRC} ${TalesEngine_Graphics_Src} ${TalesEngine_Sound_SRC})
 
-# --------------------------------------------------- Assets ---------------------------------------------------
-file(GLOB TEXTURE_FILES
-	${CMAKE_SOURCE_DIR}/src/assets/textures/*
-)
-file(COPY ${TEXTURE_FILES} DESTINATION ${CMAKE_BINARY_DIR}/assets/textures)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT TalesEngine)
+include_directories(${CMAKE_SOURCE_DIR}/include)
+if(WIN32)
+    link_directories(${CMAKE_SOURCE_DIR}/lib)
 
-file(GLOB SHADER_FILES
-	${CMAKE_SOURCE_DIR}/src/assets/shaders/*.glsl
-)
-file(COPY ${SHADER_FILES} DESTINATION ${CMAKE_BINARY_DIR}/assets/shaders)
+    #copy dlls to build directory
+    file(GLOB DLLS ${CMAKE_SOURCE_DIR}/lib/*.dll)
+    file(COPY ${DLLS} DESTINATION ${CMAKE_BINARY_DIR})
 
-file(GLOB MODEL_FILES
-    ${CMAKE_SOURCE_DIR}/src/assets/models/*
-)
-file(COPY ${MODEL_FILES} DESTINATION ${CMAKE_BINARY_DIR}/assets/models)
+    #copy libs to build directory
+    file(GLOB LIBS ${CMAKE_SOURCE_DIR}/lib/*.lib)
+    file(COPY ${LIBS} DESTINATION ${CMAKE_BINARY_DIR})
 
-# --------------------------------------------------- Executable ---------------------------------------------------
-# Configure assets header file
-configure_file(src/helpers/RootDir.h.in src/helpers/RootDir.h)
+    target_link_libraries(TalesEngine ${CMAKE_SOURCE_DIR}/lib/assimp-vc143-mt.lib)
+    target_link_libraries(TalesEngine ${CMAKE_SOURCE_DIR}/lib/sndfile.lib)
+    target_link_libraries(TalesEngine ${CMAKE_SOURCE_DIR}/lib/OpenAl32.lib)
 
-include_directories(${CMAKE_BINARY_DIR}/src ${CMAKE_BINARY_DIR}/src/assets/shaders)
+    #copy resources to build directory
+    file(COPY ${CMAKE_SOURCE_DIR}/resources/shaders DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/resources/textures DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/resources/models DESTINATION ${CMAKE_BINARY_DIR})
+    file(COPY ${CMAKE_SOURCE_DIR}/resources/sounds DESTINATION ${CMAKE_BINARY_DIR})
+endif()
 
-# Adds the executable to the project
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
-
-#   Adds the libraries to the project
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
-
-# --------------------------------------------------- Librarys -----------------------------------------------------
-
-# OpenGL
-find_package(OpenGL REQUIRED)
-
-# GLM
-find_package(glm REQUIRED)
-message(STATUS "GLM included")
-
-# GLAD
-find_package(glad REQUIRED)
-message(STATUS "GLAD included")
-
-# GLFW
-find_package(glfw3 REQUIRED)
-message(STATUS "GLFW included")
-
-# Assimp
-find_package(assimp REQUIRED)
-message(STATUS "Assimp included")
-
-find_package(imgui REQUIRED)
-message(STATUS "imgui included")
-
-# STB_IMAGE
-add_library(STB_IMAGE "thirdparty/stb_image.cpp" "thirdparty/stb_image.h")
-
-# Put all libraries into a variable
-set(LIBS
-    glm::glm
-    glad::glad
-    assimp::assimp
-    imgui::imgui
-    glfw
-    opengl32
-    STB_IMAGE
-)
-
-# Define the include directories
-include_directories(
-    "${CMAKE_SOURCE_DIR}/src"
-    "${CMAKE_SOURCE_DIR}/include"
-)
-
-# Link libraries to executables
-target_link_libraries(${PROJECT_NAME} ${LIBS})
-
-# --------------------------------------------------- Assimp Settings -----------------------------------------------------
-set(ASSIMP_NO_EXPORT ON CACHE BOOL "")
-set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "")
-set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "")
-set(ASSIMP_INSTALL_PDB OFF CACHE BOOL "")
-set(  ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT OFF CACHE BOOL "")
-set(ASSIMP_BUILD_OBJ_IMPORTER ON CACHE BOOL "")
-set(ASSIMP_BUILD_GLTF_IMPORTER ON CACHE BOOL "")
-set(ASSIMP_BUILD_FBX_IMPORTER ON CACHE BOOL "")
+target_link_libraries(TalesEngine glfw3)
