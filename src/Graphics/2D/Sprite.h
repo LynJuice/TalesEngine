@@ -17,15 +17,12 @@ const unsigned int indices[6] = {
     0,1,3,1,2,3
 };
 
-
-
 unsigned int VBO, VAO, EBO, texture;
 
 unsigned int LoadTexture(std::string path);
-
-
+glm::vec2 position;
 public:
-    Sprite(std::string texture);
+    Sprite(std::string texture, glm::vec2 position, glm::vec2 scale);
     void Render();
     void SetTexture(std::string path);
 

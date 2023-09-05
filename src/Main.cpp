@@ -112,8 +112,11 @@ void update()
 
     glClear(GL_DEPTH_BUFFER_BIT);
 
-    //sprite.SetTexture("textures/Trim2_roughness.png");
     sprite.Render();
+    LeftTop.Render();
+    RightTop.Render();
+    LeftBottom.Render();
+    RightBottom.Render();
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     // -------------------------------------------------------------------------------

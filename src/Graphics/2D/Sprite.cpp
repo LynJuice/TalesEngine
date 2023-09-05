@@ -1,8 +1,9 @@
 #include "Sprite.h"
 #include <stb_image.h>
 
-Sprite::Sprite(std::string texturePath)
+Sprite::Sprite(std::string texturePath, glm::vec2 position, glm::vec2 scale)
 {
+    this->position = position;
     shader = Shader("Default2D");
     texture = LoadTexture(texturePath);
 
@@ -28,6 +29,9 @@ Sprite::Sprite(std::string texturePath)
 
     glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind VBO
     glBindVertexArray(0); // Unbind VAO
+
+    shader.setVec2("Pos", this->position);
+    shader.setVec2("Scale", scale);
 }
 
 void Sprite::Render()

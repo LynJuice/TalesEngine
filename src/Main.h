@@ -38,11 +38,13 @@ Model Testmodel("models/AE86.fbx");
 
 // 2D Graphics
 Shader shader2D("default2D");
-Sprite sprite("textures/Crosshair.png");
+Sprite sprite("textures/Crosshair.png", glm::vec2(0.0f,0.0f), glm::vec2(0.25f, 0.25f));
 
-// Sound
-SoundSource speaker;
-
+// Screen Corners
+Sprite LeftTop("textures/container.jpg", glm::vec2(-1.5f, 1.5f), glm::vec2(0.5f, 0.5f));
+Sprite RightTop("textures/container.jpg", glm::vec2(1.5f, 1.5f), glm::vec2(0.5f, 0.5f));
+Sprite LeftBottom("textures/container.jpg", glm::vec2(-1.5f, -1.5f), glm::vec2(0.5f, 0.5f));
+Sprite RightBottom("textures/container.jpg", glm::vec2(1.5f, -1.5f), glm::vec2(0.5f, 0.5f));
 
 // The first Mouse Click
 bool firstMouse = true;
