@@ -1,6 +1,5 @@
 #include "Main.h"
 
-
 int main() { init(); while (!glfwWindowShouldClose(display.window)) { update();} return 0; }
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
@@ -83,7 +82,16 @@ void init()
 
     glCullFace(GL_BACK);
 
+    Crosshair.init(ResourceManager::LoadTexture("textures/Crosshair.png"), glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
+    shader = ResourceManager::LoadShader("default");
+
+    Testmodel = ResourceManager::LoadModel("models/AE86.fbx");
+    Testmodel2 = ResourceManager::LoadModel("models/untitled.fbx");
+
     Testmodel.Rotate(-90, glm::vec3(1, 0, 0));
+    Testmodel2.Rotate(-90, glm::vec3(1, 0, 0));
+    Testmodel2.Scale(glm::vec3(0.5f, 0.5f, 0.5f));
+
 }
 
 // Update the application
@@ -107,16 +115,11 @@ void update()
     // -----
     glClearColor(0.0f, 0.3f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
     Testmodel.Draw(shader, proj, view);
+    Testmodel2.Draw(shader, proj, view);
 
     glClear(GL_DEPTH_BUFFER_BIT);
-
-    sprite.Render();
-    LeftTop.Render();
-    RightTop.Render();
-    LeftBottom.Render();
-    RightBottom.Render();
+    Crosshair.Render();
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
     // -------------------------------------------------------------------------------

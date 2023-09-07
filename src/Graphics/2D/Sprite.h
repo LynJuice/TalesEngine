@@ -2,6 +2,7 @@
 #include "../Shader.h"
 #include <iostream>
 #include <string>
+#include <GLFW/glfw3.h>
 
 class Sprite
 {
@@ -19,12 +20,12 @@ const unsigned int indices[6] = {
 
 unsigned int VBO, VAO, EBO, texture;
 
-unsigned int LoadTexture(std::string path);
-glm::vec2 position;
 public:
-    Sprite(std::string texture, glm::vec2 position, glm::vec2 scale);
+    Sprite(); // default constructor
+    Sprite(unsigned int texture, glm::vec2 position, glm::vec2 scale);
+    void init(unsigned int textureID, glm::vec2 position, glm::vec2 scale);
     void Render();
-    void SetTexture(std::string path);
+    void SetTexture(unsigned int textureID);
 
     Shader shader;
     ~Sprite();
