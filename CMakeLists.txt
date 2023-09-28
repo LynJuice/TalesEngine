@@ -61,6 +61,7 @@ if(WIN32)
     file(COPY ${CMAKE_SOURCE_DIR}/resources/textures DESTINATION ${CMAKE_BINARY_DIR})
     file(COPY ${CMAKE_SOURCE_DIR}/resources/models DESTINATION ${CMAKE_BINARY_DIR})
     file(COPY ${CMAKE_SOURCE_DIR}/resources/sounds DESTINATION ${CMAKE_BINARY_DIR})
-endif()
+    file(COPY ${CMAKE_SOURCE_DIR}/resources/scenes DESTINATION ${CMAKE_BINARY_DIR})
+    endif()
 
 target_link_libraries(TalesEngine glfw3)

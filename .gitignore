@@ -10,3 +10,11 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 build
+resources/models/*.fbx
+resources/shaders/*.vert
+resources/shaders/*.frag
+resources/textures/*.png
+resources/textures/*.jpg
+resources/sounds/*.wav
+resources/sounds/*.ogg
+resources/sounds/*.mp3
