@@ -72,5 +72,5 @@ Model ResourceManager::LoadModel(std::string path)
     }
 
     models[path] = Model(path);
-    return Model(path);
+    return LoadModel(path);
 }

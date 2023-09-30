@@ -85,13 +85,10 @@ void init()
     Crosshair.init(ResourceManager::LoadTexture("textures/Crosshair.png"), glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f));
     shader = ResourceManager::LoadShader("default");
 
-    Testmodel = ResourceManager::LoadModel("models/AE86.fbx");
-    Testmodel2 = ResourceManager::LoadModel("models/untitled.fbx");
+    Testmodel = ResourceManager::LoadModel("models/bluebox.fbx");
+    Testmodel2 = ResourceManager::LoadModel("models/redbox.fbx");
 
-    Testmodel.Rotate(-90, glm::vec3(1, 0, 0));
-    Testmodel2.Rotate(-90, glm::vec3(1, 0, 0));
-    Testmodel2.Scale(glm::vec3(0.5f, 0.5f, 0.5f));
-
+    Testmodel.Translate(glm::vec3(0.0f, 2.0f, 0.0f));
 }
 
 // Update the application
