@@ -10,6 +10,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 build
+.vscode
 resources/models/*.fbx
 resources/textures/*.png
 resources/textures/*.jpg
