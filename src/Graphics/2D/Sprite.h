@@ -13,41 +13,42 @@
 #include <string>
 #include <GLFW/glfw3.h>
 
-/*
-| Class: Sprite
-|----------------
-| A class that represents a sprite
-|----------------
-| @function Sprite - Default constructor
-| @function Sprite - Creates a new sprite
-| @function init - Initializes the sprite
-| @function Render - Renders the sprite
-| @function SetTexture - Sets the texture of the sprite
-*/
-
-class Sprite
+namespace Renderer
 {
-private:
-const float vertices[20] = {
-         0.5f,  0.5f, 0.0f,  1.0f, 1.0f,// top right
-         0.5f, -0.5f, 0.0f,  1.0f, 0.0f,// bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,// bottom left
-        -0.5f,  0.5f, 0.0f,   0.0f, 1.0f// top left 
-};
+    /*
+    | Class: Sprite
+    |----------------
+    | A class that represents a sprite
+    |----------------
+    | @function Sprite - Default constructor
+    | @function Sprite - Creates a new sprite
+    | @function init - Initializes the sprite
+    | @function Render - Renders the sprite
+    | @function SetTexture - Sets the texture of the sprite
+    */
+    class Sprite
+    {
+    public:
+        Sprite(); // default constructor
+        Sprite(unsigned int texture, glm::vec2 position, glm::vec2 scale);
+        void init(unsigned int textureID, glm::vec2 position, glm::vec2 scale);
+        void Render();
+        void SetTexture(unsigned int textureID);
 
-const unsigned int indices[6] = {
-    0,1,3,1,2,3
-};
+        Renderer::Shader shader;
+        ~Sprite();
 
-unsigned int VBO, VAO, EBO, texture;
+    private:
+        const float vertices[20] = {
+            0.5f, 0.5f, 0.0f, 1.0f, 1.0f,   // top right
+            0.5f, -0.5f, 0.0f, 1.0f, 0.0f,  // bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
+            -0.5f, 0.5f, 0.0f, 0.0f, 1.0f   // top left
+        };
 
-public:
-    Sprite(); // default constructor
-    Sprite(unsigned int texture, glm::vec2 position, glm::vec2 scale);
-    void init(unsigned int textureID, glm::vec2 position, glm::vec2 scale);
-    void Render();
-    void SetTexture(unsigned int textureID);
+        const unsigned int indices[6] = {
+            0, 1, 3, 1, 2, 3};
 
-    Shader shader;
-    ~Sprite();
-};
+        unsigned int VBO, VAO, EBO, texture;
+    };
+}

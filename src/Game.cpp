@@ -19,11 +19,19 @@ float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 
 // variables
-const ResourceManager ResManager;
+const Resources::ResourceManager ResManager;
 Camera camera(0.0f, 0.0f, 3.0f);
-Display display(SCR_WIDTH, SCR_HEIGHT, "TalesEngine");
+Renderer::Display display(SCR_WIDTH, SCR_HEIGHT, "TalesEngine");
 
-Game::Game(int width, int height)
+/*
+| Function: Game
+|----------------
+| Default constructor
+|----------------
+| @param width - The width of the window
+| @param height - The height of the window
+*/
+Game::Game::Game(int width, int height)
 {
     // set the callback functions
     glfwSetFramebufferSizeCallback(display.window, framebuffer_size_callback);
@@ -65,25 +73,42 @@ Game::Game(int width, int height)
     }
 }
 
-Game::~Game()
+/*
+| Destructor: Game
+*/
+Game::Game::~Game()
 {
-    // terminate GLFW, clearing any resources allocated by GLFW.
     glfwTerminate();
 }
 
-void Game::init()
+/*
+| Function: init
+|---------------
+| Initializes all the game's variables
+*/
+void Game::Game::init()
 {
 
 }
 
-void Game::update()
+/*
+| Function: update
+|-----------------
+| Updates the game
+*/
+void Game::Game::update()
 {
     // projection matrix and view matrix
     glm::mat4 proj = display.getProjection();
     glm::mat4 view = glm::lookAt(camera.cameraPos, camera.cameraPos + camera.cameraFront, camera.cameraUp);
 }
 
-void Game::render()
+/*
+| Function: render
+|-----------------
+| Renders the game
+*/
+void Game::Game::render()
 {
     // clear the screen
     glClearColor(0.0f, 0.3f, 0.5f, 1.0f);
@@ -95,7 +120,14 @@ void Game::render()
     // render the UI
 }
 
-void Game::processInput(GLFWwindow *window)
+/*
+| Function: processInput
+|-----------------------
+| Processes the input
+|-----------------------
+| @param window - The window to process the input for
+*/
+void Game::Game::processInput(GLFWwindow *window)
 {
     // close the window when the escape key is pressed
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -117,12 +149,17 @@ void Game::processInput(GLFWwindow *window)
 }
 
 
+// callback functions
 
-
-
-
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-// ---------------------------------------------------------------------------------------------
+/*
+| Function: framebuffer_size_callback
+|------------------------------------
+| Callback function for when the window is resized
+|-------------------------------------------------
+| @param window - The window that was resized
+| @param width - The new width of the window
+| @param height - The new height of the window
+*/
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
@@ -130,8 +167,15 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-// glfw: whenever the cursor position is changed this callback function executes
-// -----------------------------------------------------------------------------
+/*
+| Function: mouse_callback
+|-------------------------
+| Callback function for when the mouse is moved
+|----------------------------------------------
+| @param window - The window that the mouse was moved in
+| @param xpos - The new x position of the mouse
+| @param ypos - The new y position of the mouse
+*/
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
     if (firstMouse)
@@ -164,8 +208,15 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     camera.cameraFront = glm::normalize(camera.direction);
 }
 
-// glfw: whenever the mouse scroll wheel scrolls, this callback is called
-// ----------------------------------------------------------------------
+/*
+| Function: scroll_callback
+|--------------------------
+| Callback function for when the mouse wheel is scrolled
+|-------------------------------------------------------
+| @param window - The window that the mouse was scrolled in
+| @param xoffset - The x offset of the scroll
+| @param yoffset - The y offset of the scroll
+*/
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.fov -= (float)yoffset;

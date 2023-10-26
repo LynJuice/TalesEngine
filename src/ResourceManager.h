@@ -16,10 +16,9 @@
 #include "Graphics/3D/Model.h"
 #include <iostream>
 #include <glad/glad.h>
-
 // Static variables
 static std::map<std::string, unsigned int> textures;
-static std::map<std::string, Shader> shaders;
+static std::map<std::string, Renderer::Shader> shaders;
 static std::map<std::string, Model> models;
 
 /*
@@ -31,14 +30,15 @@ static std::map<std::string, Model> models;
 | @function LoadShader - Loads a shader from a file path
 | @function LoadModel - Loads a model from a file path
 */
-
-class ResourceManager
+namespace Resources
 {
-public:
-    static unsigned int LoadTexture(std::string path);
-    static Shader LoadShader(std::string path);
-    static Model LoadModel(std::string path);
+    class ResourceManager
+    {
+    public:
+        static unsigned int LoadTexture(std::string path);
+        static Renderer::Shader LoadShader(std::string path);
+        static Model LoadModel(std::string path);
 
-private:
-};
-
+    private:
+    };
+}

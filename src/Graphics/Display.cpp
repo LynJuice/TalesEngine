@@ -12,7 +12,7 @@
 |------------------------
 | @return - The projection matrix
 */
-glm::mat4 Display::getProjection()
+glm::mat4 Renderer::Display::getProjection()
 {
 	// get window size
 	int width, height;
@@ -31,7 +31,7 @@ glm::mat4 Display::getProjection()
 | @param SCR_HEIGHT - The height of the window
 | @param title - The title of the window
 */
-Display::Display(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, const char* title)
+Renderer::Display::Display(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, const char *title)
 {
 	// glfw: initialize and configure
 	// ------------------------------
@@ -61,7 +61,6 @@ Display::Display(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, const char* ti
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 	}
-
 }
 
 /*
@@ -69,7 +68,7 @@ Display::Display(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, const char* ti
 |--------------------------
 | Destroys the display
 */
-Display::~Display()
+Renderer::Display::~Display()
 {
 	glfwTerminate();
 }

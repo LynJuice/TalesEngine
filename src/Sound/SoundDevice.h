@@ -5,14 +5,18 @@
 #include <stdio.h>
 #include <iostream>
 
-class SoundDevice
+namespace Sound
 {
-public:
-	static SoundDevice* get();
-private:
-	SoundDevice();
-	~SoundDevice();
+	class SoundDevice
+	{
+	public:
+		static SoundDevice *get();
 
-	ALCdevice*  p_ALDevice;
-	ALCcontext* p_ALCContext;
-};
+	private:
+		SoundDevice();
+		~SoundDevice();
+
+		ALCdevice *p_ALDevice;
+		ALCcontext *p_ALCContext;
+	};
+}

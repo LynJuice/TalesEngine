@@ -15,7 +15,7 @@
 | @param proj - The projection matrix
 | @param view - The view matrix
 */
-void Model::Draw(Shader& shader, glm::mat4 proj, glm::mat4 view)
+void Model::Draw(Renderer::Shader& shader, glm::mat4 proj, glm::mat4 view)
 {
     shader.use();
     shader.setMat4("projection", proj);

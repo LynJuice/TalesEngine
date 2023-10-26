@@ -31,26 +31,29 @@
 | @function mouse_callback - The callback function for when the mouse is moved
 | @function scroll_callback - The callback function for when the mouse wheel is scrolled
 */
-class Game
+namespace Game
 {
-public:
-    // constructor/destructor
-    Game(int width, int height);
-    ~Game();
+    class Game
+    {
+    public:
+        // constructor/destructor
+        Game(int width, int height);
+        ~Game();
 
-    // game loop
-    void init();
-    void update();
-    void render();
-    void processInput(GLFWwindow *window);
+        // game loop
+        void init();
+        void update();
+        void render();
+        void processInput(GLFWwindow *window);
 
-private:
-    // timing
-    float deltaTime = 0.0f;
-    float lastFrame = 0.0f;
+    private:
+        // timing
+        float deltaTime = 0.0f;
+        float lastFrame = 0.0f;
 
-    // camera
-    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-    glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-    glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-};
+        // camera
+        glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+        glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+    };
+}

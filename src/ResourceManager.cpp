@@ -18,7 +18,7 @@
 |---------------------
 | @return - The texture ID
 */
-unsigned int ResourceManager::LoadTexture(std::string path)
+unsigned int Resources::ResourceManager::LoadTexture(std::string path)
 {
     if (textures.find(path) != textures.end()) // If texture already exists
     {
@@ -39,8 +39,8 @@ unsigned int ResourceManager::LoadTexture(std::string path)
 
     // Load image, create texture and generate mipmaps
     int width, height, nrChannels;
-    unsigned char* data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0); // Load image
-    if (data) // If image loaded successfully
+    unsigned char *data = stbi_load(path.c_str(), &width, &height, &nrChannels, 0); // Load image
+    if (data)                                                                       // If image loaded successfully
     {
         if (nrChannels == 3) // If image is RGB
         {
@@ -64,10 +64,9 @@ unsigned int ResourceManager::LoadTexture(std::string path)
     stbi_image_free(data); // Free image memory
 
     textures[path] = texture; // Add texture to map
-    
+
     return texture;
 }
-
 
 /*
 | Function: LoadShader
@@ -78,15 +77,15 @@ unsigned int ResourceManager::LoadTexture(std::string path)
 |---------------------
 | @return - The shader
 */
-Shader ResourceManager::LoadShader(std::string path)
+Renderer::Shader Resources::ResourceManager::LoadShader(std::string path)
 {
     // Check if shader has already loaded
     if (shaders.find(path) != shaders.end())
-	{
-		return shaders[path];
-	}
+    {
+        return shaders[path];
+    }
 
-    shaders[path] = Shader(path); // Add shader to map
+    shaders[path] = Renderer::Shader(path); // Add shader to map
     return LoadShader(path);
 }
 
@@ -99,11 +98,11 @@ Shader ResourceManager::LoadShader(std::string path)
 |---------------------
 | @return - The model
 */
-Model ResourceManager::LoadModel(std::string path)
+Model Resources::ResourceManager::LoadModel(std::string path)
 {
     if (models.find(path) != models.end())
     {
-		return models[path];
+        return models[path];
     }
 
     models[path] = Model(path);

@@ -1,13 +1,13 @@
 #include "SoundBuffer.h"
 
 
-SoundBuffer* SoundBuffer::get()
+Sound::SoundBuffer* Sound::SoundBuffer::get()
 {
 	static SoundBuffer* sndbuf = new SoundBuffer();
 	return sndbuf;
 }
 
-ALuint SoundBuffer::addSoundEffect(const char* filename)
+ALuint Sound::SoundBuffer::addSoundEffect(const char* filename)
 {
 
 	ALenum err, format;
@@ -93,7 +93,7 @@ ALuint SoundBuffer::addSoundEffect(const char* filename)
 	return buffer;
 }
 
-bool SoundBuffer::removeSoundEffect(const ALuint& buffer)
+bool Sound::SoundBuffer::removeSoundEffect(const ALuint& buffer)
 {
 	auto it = p_SoundEffectBuffers.begin();
 	while (it != p_SoundEffectBuffers.end())
@@ -114,13 +114,13 @@ bool SoundBuffer::removeSoundEffect(const ALuint& buffer)
 }
 
 
-SoundBuffer::SoundBuffer()
+Sound::SoundBuffer::SoundBuffer()
 {
 	p_SoundEffectBuffers.clear();
 
 }
 
-SoundBuffer::~SoundBuffer()
+Sound::SoundBuffer::~SoundBuffer()
 {
 	alDeleteBuffers(p_SoundEffectBuffers.size(), p_SoundEffectBuffers.data());
 

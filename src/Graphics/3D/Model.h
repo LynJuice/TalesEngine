@@ -60,7 +60,7 @@ public:
     }
 
     // draws the model, and thus all its meshes
-    void Draw(Shader& shader, glm::mat4 proj, glm::mat4 view);
+    void Draw(Renderer::Shader& shader, glm::mat4 proj, glm::mat4 view);
 
     // Transformations
     void Translate(glm::vec3 translation);

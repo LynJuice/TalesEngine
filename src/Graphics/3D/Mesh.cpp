@@ -26,7 +26,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 |----------------
 | @param shader - The shader to use
 */
-void Mesh::Draw(Shader& shader)
+void Mesh::Draw(Renderer::Shader& shader)
 {
     // bind appropriate textures
     unsigned int diffuseNr = 1;

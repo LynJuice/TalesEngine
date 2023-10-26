@@ -7,7 +7,7 @@
 |-----------------
 | @param shaderFile - The path to the shader
 */
-Shader::Shader(std::string shaderFile)
+Renderer::Shader::Shader(std::string shaderFile)
 {
 	// Read the Vertex Shader from shaderFile.vert
 	std::string vertexShaderSource = readFile("shaders/" + shaderFile + ".vert");
@@ -80,7 +80,7 @@ Shader::Shader(std::string shaderFile)
 |--------------------
 | @return - The contents of the file
 */
-std::string Shader::readFile(std::string file)
+std::string Renderer::Shader::readFile(std::string file)
 {
 	// Open the file
 	std::ifstream fileStream(file, std::ios::in);
@@ -106,7 +106,7 @@ std::string Shader::readFile(std::string file)
 |--------------
 | Uses the shader
 */
-void Shader::use()
+void Renderer::Shader::use()
 {
 	glUseProgram(shaderID);
 }
@@ -119,7 +119,7 @@ void Shader::use()
 | @param name - The name of the uniform
 | @param value - The value of the uniform
 */
-void Shader::setBool(const std::string &name, bool value) const
+void Renderer::Shader::setBool(const std::string &name, bool value) const
 {
 	glUseProgram(shaderID);
 	glUniform1i(glGetUniformLocation(shaderID, name.c_str()), (int)value);
@@ -133,7 +133,7 @@ void Shader::setBool(const std::string &name, bool value) const
 | @param name - The name of the uniform
 | @param value - The value of the uniform
 */
-void Shader::setInt(const std::string &name, int value) const
+void Renderer::Shader::setInt(const std::string &name, int value) const
 {
 	glUseProgram(shaderID);
 	glUniform1i(glGetUniformLocation(shaderID, name.c_str()), value);
@@ -147,7 +147,7 @@ void Shader::setInt(const std::string &name, int value) const
 | @param name - The name of the uniform
 | @param value - The value of the uniform
 */
-void Shader::setFloat(const std::string &name, float value) const
+void Renderer::Shader::setFloat(const std::string &name, float value) const
 {
 	glUseProgram(shaderID);
 	glUniform1f(glGetUniformLocation(shaderID, name.c_str()), value);
@@ -161,7 +161,7 @@ void Shader::setFloat(const std::string &name, float value) const
 | @param name - The name of the uniform
 | @param value - The value of the uniform
 */
-void Shader::setVec2(const std::string& name, glm::vec2 value) const
+void Renderer::Shader::setVec2(const std::string& name, glm::vec2 value) const
 {
 	glUseProgram(shaderID);
 	glUniform2fv(glGetUniformLocation(shaderID, name.c_str()), 1, &value[0]);
@@ -175,7 +175,7 @@ void Shader::setVec2(const std::string& name, glm::vec2 value) const
 | @param name - The name of the uniform
 | @param value - The value of the uniform
 */
-void Shader::setVec3(const std::string &name, glm::vec3 value) const
+void Renderer::Shader::setVec3(const std::string &name, glm::vec3 value) const
 {
 	glUseProgram(shaderID);
 	glUniform3fv(glGetUniformLocation(shaderID, name.c_str()), 1, &value[0]);
@@ -189,7 +189,7 @@ void Shader::setVec3(const std::string &name, glm::vec3 value) const
 | @param name - The name of the uniform
 | @param value - The value of the uniform
 */
-void Shader::setMat4(const std::string &name, glm::mat4 value) const
+void Renderer::Shader::setMat4(const std::string &name, glm::mat4 value) const
 {
 	glUseProgram(shaderID);
 	glUniformMatrix4fv(glGetUniformLocation(shaderID, name.c_str()), 1, GL_FALSE, &value[0][0]);

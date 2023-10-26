@@ -15,7 +15,7 @@
 | @param position - The position of the sprite
 | @param scale - The scale of the sprite
 */
-Sprite::Sprite(unsigned int textureID, glm::vec2 position, glm::vec2 scale)
+Renderer::Sprite::Sprite(unsigned int textureID, glm::vec2 position, glm::vec2 scale)
 {
     init(textureID, position, scale);
 }
@@ -29,9 +29,9 @@ Sprite::Sprite(unsigned int textureID, glm::vec2 position, glm::vec2 scale)
 | @param position - The position of the sprite
 | @param scale - The scale of the sprite
 */
-void Sprite::init(unsigned int textureID, glm::vec2 position, glm::vec2 scale)
+void Renderer::Sprite::init(unsigned int textureID, glm::vec2 position, glm::vec2 scale)
 {
-    shader = Shader("Default2D");
+    shader = Renderer::Shader("Default2D");
     texture = textureID;
 
     glGenVertexArrays(1, &VAO);
@@ -72,7 +72,7 @@ void Sprite::init(unsigned int textureID, glm::vec2 position, glm::vec2 scale)
 |-----------------
 | Renders the sprite
 */
-void Sprite::Render()
+void Renderer::Sprite::Render()
 {
     glCullFace(GL_FRONT);
 
@@ -94,15 +94,15 @@ void Sprite::Render()
 |-----------------
 | @param texture - The texture ID
 */
-void Sprite::SetTexture(unsigned int texture)
+void Renderer::Sprite::SetTexture(unsigned int texture)
 {
     this->texture = texture;
 }
 
-Sprite::~Sprite()
+Renderer::Sprite::~Sprite()
 {
 }
 
-Sprite::Sprite()
+Renderer::Sprite::Sprite()
 {
 }

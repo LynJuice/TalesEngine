@@ -1,12 +1,12 @@
 #include "SoundDevice.h"
 
-SoundDevice* SoundDevice::get()
+Sound::SoundDevice* Sound::SoundDevice::get()
 {
 	static SoundDevice* instance = new SoundDevice();
 	return instance;
 }
 
-SoundDevice::SoundDevice()
+Sound::SoundDevice::SoundDevice()
 {
 	p_ALDevice = alcOpenDevice(NULL);
 	if (!p_ALDevice)
@@ -32,7 +32,7 @@ SoundDevice::SoundDevice()
 	std::cout << "Opened " << name << std::endl;
 }
 
-SoundDevice::~SoundDevice()
+Sound::SoundDevice::~SoundDevice()
 {
 	if (!alcMakeContextCurrent(nullptr))
 		std::cout << "failed to set context to nullptr";
