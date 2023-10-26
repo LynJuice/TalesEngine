@@ -38,6 +38,7 @@ public:
     float yaw = -90.0f;
     float pitch = 0.0f;
     float roll = 0.0f;
+    int fov = 45.0f;
 
     float lastX = 400, lastY = 300;
 };
