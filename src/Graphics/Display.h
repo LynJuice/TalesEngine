@@ -1,4 +1,13 @@
 #pragma once
+
+/*
+| Dependencies
+|------------------
+| glad - glad.h
+| GLFW - glfw3.h
+| glm - glm.hpp, gtc/matrix_transform.hpp
+| iostream - std::cout, std::endl
+*/
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

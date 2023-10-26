@@ -1,5 +1,17 @@
+/*
+| Dependencies
+|------------------
+| Display.h - the header file for this file
+*/
 #include "Display.h"
 
+/*
+| Function: getProjection
+|------------------------
+| Gets the projection matrix for the current window
+|------------------------
+| @return - The projection matrix
+*/
 glm::mat4 Display::getProjection()
 {
 	// get window size
@@ -10,6 +22,15 @@ glm::mat4 Display::getProjection()
 	return glm::perspective(glm::radians(90.0f), float(width) / float(height), 0.1f, 100.0f);
 }
 
+/*
+| Class Constructor: Display
+|---------------------------
+| Creates a new display
+|---------------------------
+| @param SCR_WIDTH - The width of the window
+| @param SCR_HEIGHT - The height of the window
+| @param title - The title of the window
+*/
 Display::Display(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, const char* title)
 {
 	// glfw: initialize and configure
@@ -43,9 +64,12 @@ Display::Display(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, const char* ti
 
 }
 
+/*
+| Class Destructor: Display
+|--------------------------
+| Destroys the display
+*/
 Display::~Display()
 {
-	// glfw: terminate, clearing all previously allocated GLFW resources.
-// ------------------------------------------------------------------
 	glfwTerminate();
 }

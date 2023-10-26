@@ -1,7 +1,21 @@
 #pragma once
 
+/*
+| Dependencies:
+|------------------
+| glad - glad.h
+| string - std::string
+| fstream - std::ifstream
+| sstream - std::stringstream
+| iostream - std::cout, std::endl
+| map - std::map
+| vector - std::vector
+| assimp - assimp/Importer.hpp, assimp/scene.h, assimp/postprocess.h
+| glm - glm/common.hpp, glm/gtc/matrix_transform.hpp
+| Shader - Shader.h
+| Mesh - Mesh.h
+*/
 #include <glad/glad.h>
-
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -13,9 +27,21 @@
 #include <assimp/postprocess.h>
 #include <glm/common.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
 #include "../Shader.h"
 #include "Mesh.h"
+
+/*
+| Class: Model
+|----------------
+| A class that represents a model
+|----------------
+| @function Model - Default constructor
+| @function Model - Creates a new model
+| @function Draw - Draws the model
+| @function Translate - Translates the model
+| @function Rotate - Rotates the model
+| @function Scale - Scales the model
+*/
 class Model
 {
 public:

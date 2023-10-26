@@ -1,8 +1,29 @@
 #pragma once
+
+/*
+| Dependencies:
+|------------------
+| Shader - Shader.h
+| iostream - std::cout, std::endl
+| string - std::string
+| glfw3 - glfw3.h
+*/
 #include "../Shader.h"
 #include <iostream>
 #include <string>
 #include <GLFW/glfw3.h>
+
+/*
+| Class: Sprite
+|----------------
+| A class that represents a sprite
+|----------------
+| @function Sprite - Default constructor
+| @function Sprite - Creates a new sprite
+| @function init - Initializes the sprite
+| @function Render - Renders the sprite
+| @function SetTexture - Sets the texture of the sprite
+*/
 
 class Sprite
 {

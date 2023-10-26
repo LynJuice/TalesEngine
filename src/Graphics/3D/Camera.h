@@ -1,8 +1,24 @@
 #pragma once
+/*
+| Dependencies:
+|------------------
+| iostream - std::cout, std::endl
+| glm - glm.hpp, gtc/matrix_transform.hpp, gtc/type_ptr.hpp
+*/
+#include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+/*
+| Class: Camera
+|----------------
+| A class that represents a camera
+|----------------
+| @function Camera - Default constructor
+| @function Camera - Creates a new camera
+| @function ~Camera - Default destructor
+*/
 class Camera
 {
 private:

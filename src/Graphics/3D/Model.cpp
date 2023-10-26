@@ -1,7 +1,20 @@
+/*
+| Dependecies:
+| - stb_image.h - has to be loaded in cpp file
+*/
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "Model.h"
 
+/*
+| Function: Draw
+|-----------------
+| Draws the model
+|-----------------
+| @param shader - The shader to use
+| @param proj - The projection matrix
+| @param view - The view matrix
+*/
 void Model::Draw(Shader& shader, glm::mat4 proj, glm::mat4 view)
 {
     shader.use();
@@ -12,21 +25,50 @@ void Model::Draw(Shader& shader, glm::mat4 proj, glm::mat4 view)
         meshes[i].Draw(shader);
 }
 
+/*
+| Function: Translate
+|-----------------
+| Moves the model
+|-----------------
+| @param translation - The translation vector
+*/
 void Model::Translate(glm::vec3 translation)
 {
     model = glm::translate(model, translation);
 }
 
+/*
+| Function: Rotate
+|-----------------
+| Rotates the model
+|-----------------
+| @param angle - The angle to rotate
+| @param axis - The axis to rotate on
+*/
 void Model::Rotate(float angle, glm::vec3 axis)
 {
     model = glm::rotate(model, glm::radians(angle), axis);
 }
 
+/*
+| Function: Scale
+|-----------------
+| Scales the model
+|-----------------
+| @param scale - The scale vector
+*/
 void Model::Scale(glm::vec3 scale)
 {
     model = glm::scale(model, scale);
 }
 
+/*
+| Function: loadModel
+|-----------------
+| Loads the model
+|-----------------
+| @param path - The path to the model
+*/
 void Model::loadModel(std::string const& path)
 {
     // read file via ASSIMP
@@ -45,6 +87,14 @@ void Model::loadModel(std::string const& path)
     processNode(scene->mRootNode, scene);
 }
 
+/*
+| Function: processNode
+|----------------------
+| Processes a part of the model
+|----------------------
+| @param node - The node to process
+| @param scene - The scene to process
+*/
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
     // process each mesh located at the current node
@@ -62,6 +112,16 @@ void Model::processNode(aiNode* node, const aiScene* scene)
     }
 }
 
+/*
+| Function: processMesh
+|----------------------
+| Processes a mesh
+|----------------------
+| @param mesh - The mesh to process
+| @param scene - The scene to process
+|----------------------
+| @return - The processed mesh
+*/
 Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     // data to fill
@@ -146,6 +206,17 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     return Mesh(vertices, indices, textures);
 }
 
+/*
+| Function: loadMaterialTextures
+|--------------------------------
+| Loads the textures of the model
+|--------------------------------
+| @param mat - The material to load
+| @param type - The type of texture
+| @param typeName - The name of the type of texture
+|--------------------------------
+| @return - The loaded textures
+*/
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
     std::vector<Texture> textures;
@@ -177,6 +248,17 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
     return textures;
 }
 
+/*
+| Function: TextureFromFile
+|--------------------------
+| Loads a texture from a file
+|--------------------------
+| @param path - The path to the texture
+| @param directory - The directory of the texture
+| @param gamma - Whether or not to use gamma
+|--------------------------
+| @return - The loaded texture
+*/
 unsigned int Model::TextureFromFile(const char* path, const std::string& directory, bool gamma)
 {
     std::string filename = std::string(path);

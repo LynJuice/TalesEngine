@@ -1,5 +1,14 @@
 #include "Mesh.h"
 
+/*
+| Function: Mesh
+|----------------
+| Creates a new mesh
+|----------------
+| @param vertices - The vertices of the mesh
+| @param indices - The indices of the mesh
+| @param textures - The textures of the mesh
+*/
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
 {
     this->vertices = vertices;
@@ -10,6 +19,13 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     setupMesh();
 }
 
+/*
+| Function: Draw
+|----------------
+| Draws the mesh
+|----------------
+| @param shader - The shader to use
+*/
 void Mesh::Draw(Shader& shader)
 {
     // bind appropriate textures
@@ -47,6 +63,11 @@ void Mesh::Draw(Shader& shader)
     glActiveTexture(GL_TEXTURE0);
 }
 
+/*
+| Function: setupMesh   
+|----------------------
+| Sets up the mesh
+*/
 void Mesh::setupMesh()
 {
     // create buffers/arrays

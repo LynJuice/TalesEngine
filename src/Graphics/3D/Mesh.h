@@ -1,15 +1,36 @@
 #pragma once
-#include <glad/glad.h> // holds all OpenGL type declarations
 
+/*
+| Dependencies
+|------------------
+| glad - glad.h
+| glm - glm.hpp, gtc/matrix_transform.hpp
+| string - std::string
+| vector - std::vector
+| Shader - Shader.h
+*/
+#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
 #include <vector>
-
 #include "../Shader.h"
 
 #define MAX_BONE_INFLUENCE 4
 
+/*
+| Struct: Vertex
+|---------------
+| A struct that represents a vertex
+|---------------
+| @param Position - The position of the vertex
+| @param Normal - The normal of the vertex
+| @param TexCoords - The texture coordinates of the vertex
+| @param Tangent - The tangent of the vertex
+| @param Bitangent - The bitangent of the vertex
+| @param m_BoneIDs - The bone IDs of the vertex
+| @param m_Weights - The weights of the vertex
+*/
 struct Vertex {
     // position
     glm::vec3 Position;

@@ -1,6 +1,23 @@
+
+/*
+|Dependancies:
+|--------------------
+| ResourceManager.h - The Header file for resource manager
+| stb_image.h - Image loading library has to be loaded in .cpp file
+*/
+
 #include "ResourceManager.h"
 #include <stb_image.h>
 
+/*
+| Function: LoadTexture
+|---------------------
+| Loads a texture from a file path
+|---------------------
+| @param path - The path to the texture
+|---------------------
+| @return - The texture ID
+*/
 unsigned int ResourceManager::LoadTexture(std::string path)
 {
     if (textures.find(path) != textures.end()) // If texture already exists
@@ -51,6 +68,16 @@ unsigned int ResourceManager::LoadTexture(std::string path)
     return texture;
 }
 
+
+/*
+| Function: LoadShader
+|---------------------
+| Loads a shader from a file path
+|---------------------
+| @param path - The path to the shader
+|---------------------
+| @return - The shader
+*/
 Shader ResourceManager::LoadShader(std::string path)
 {
     // Check if shader has already loaded
@@ -60,10 +87,18 @@ Shader ResourceManager::LoadShader(std::string path)
 	}
 
     shaders[path] = Shader(path); // Add shader to map
-
-    return Shader(path);
+    return LoadShader(path);
 }
 
+/*
+| Function: LoadModel
+|---------------------
+| Loads a model from a file path
+|---------------------
+| @param path - The path to the model
+|---------------------
+| @return - The model
+*/
 Model ResourceManager::LoadModel(std::string path)
 {
     if (models.find(path) != models.end())
