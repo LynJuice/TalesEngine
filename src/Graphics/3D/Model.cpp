@@ -15,7 +15,7 @@
 | @param proj - The projection matrix
 | @param view - The view matrix
 */
-void Model::Draw(Renderer::Shader& shader, glm::mat4 proj, glm::mat4 view)
+void Renderer::Model::Draw(Renderer::Shader& shader, glm::mat4 proj, glm::mat4 view)
 {
     shader.use();
     shader.setMat4("projection", proj);
@@ -32,7 +32,7 @@ void Model::Draw(Renderer::Shader& shader, glm::mat4 proj, glm::mat4 view)
 |-----------------
 | @param translation - The translation vector
 */
-void Model::Translate(glm::vec3 translation)
+void Renderer::Model::Translate(glm::vec3 translation)
 {
     model = glm::translate(model, translation);
 }
@@ -45,7 +45,7 @@ void Model::Translate(glm::vec3 translation)
 | @param angle - The angle to rotate
 | @param axis - The axis to rotate on
 */
-void Model::Rotate(float angle, glm::vec3 axis)
+void Renderer::Model::Rotate(float angle, glm::vec3 axis)
 {
     model = glm::rotate(model, glm::radians(angle), axis);
 }
@@ -57,7 +57,7 @@ void Model::Rotate(float angle, glm::vec3 axis)
 |-----------------
 | @param scale - The scale vector
 */
-void Model::Scale(glm::vec3 scale)
+void Renderer::Model::Scale(glm::vec3 scale)
 {
     model = glm::scale(model, scale);
 }
@@ -69,7 +69,7 @@ void Model::Scale(glm::vec3 scale)
 |-----------------
 | @param path - The path to the model
 */
-void Model::loadModel(std::string const& path)
+void Renderer::Model::loadModel(std::string const& path)
 {
     // read file via ASSIMP
     Assimp::Importer importer;
@@ -95,7 +95,7 @@ void Model::loadModel(std::string const& path)
 | @param node - The node to process
 | @param scene - The scene to process
 */
-void Model::processNode(aiNode* node, const aiScene* scene)
+void Renderer::Model::processNode(aiNode* node, const aiScene* scene)
 {
     // process each mesh located at the current node
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
@@ -122,7 +122,7 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 |----------------------
 | @return - The processed mesh
 */
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+Renderer::Mesh Renderer::Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     // data to fill
     std::vector<Vertex> vertices;
@@ -217,7 +217,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 |--------------------------------
 | @return - The loaded textures
 */
-std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+std::vector<Texture> Renderer::Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
     std::vector<Texture> textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -259,7 +259,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 |--------------------------
 | @return - The loaded texture
 */
-unsigned int Model::TextureFromFile(const char* path, const std::string& directory, bool gamma)
+unsigned int Renderer::Model::TextureFromFile(const char* path, const std::string& directory, bool gamma)
 {
     std::string filename = std::string(path);
     //filename = directory + '/' + filename;

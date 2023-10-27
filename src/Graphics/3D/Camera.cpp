@@ -9,7 +9,7 @@
 | @param Y - The Y position of the camera
 | @param Z - The Z position of the camera
 */
-Camera::Camera(float X, float Y, float Z)
+Renderer::Camera::Camera(float X, float Y, float Z)
 {
 	cameraTarget = glm::vec3(X, Y, Z);
 	cameraDirection = glm::normalize(cameraPos - cameraTarget);
@@ -17,7 +17,7 @@ Camera::Camera(float X, float Y, float Z)
 	cameraUp = glm::cross(cameraDirection, cameraRight);
 }
 
-Camera::~Camera()
+Renderer::Camera::~Camera()
 {
 
 }

@@ -31,7 +31,8 @@
 | @param m_BoneIDs - The bone IDs of the vertex
 | @param m_Weights - The weights of the vertex
 */
-struct Vertex {
+struct Vertex
+{
     // position
     glm::vec3 Position;
     // normal
@@ -42,36 +43,58 @@ struct Vertex {
     glm::vec3 Tangent;
     // bitangent
     glm::vec3 Bitangent;
-    //bone indexes which will influence this vertex
+    // bone indexes which will influence this vertex
     int m_BoneIDs[MAX_BONE_INFLUENCE];
-    //weights from each bone
+    // weights from each bone
     float m_Weights[MAX_BONE_INFLUENCE];
 };
 
-struct Texture {
+/*
+| Struct: Texture
+|----------------
+| A struct that represents a texture
+|----------------
+| @param id - The id of the texture
+| @param type - The type of the texture
+| @param path - The path of the texture
+*/
+struct Texture
+{
     unsigned int id;
     std::string type;
     std::string path;
 };
 
-class Mesh {
-public:
-    // mesh Data
-    std::vector<Vertex>       vertices;
-    std::vector<unsigned int> indices;
-    std::vector<Texture>      textures;
-    unsigned int VAO;
+namespace Renderer
+{
+    /*
+    | Class: Mesh
+    |------------
+    | A class that represents a mesh
+    |------------
+    | @function Mesh - Creates a new mesh
+    | @function Draw - Draws the mesh
+    */
+    class Mesh
+    {
+    public:
+        // mesh Data
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
+        std::vector<Texture> textures;
+        unsigned int VAO;
 
-    // constructor
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+        // constructor
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
 
-    // render the mesh
-    void Draw(Renderer::Shader& shader);
+        // render the mesh
+        void Draw(Renderer::Shader &shader);
 
-private:
-    // render data 
-    unsigned int VBO, EBO;
+    private:
+        // render data
+        unsigned int VBO, EBO;
 
-    // initializes all the buffer objects/arrays
-    void setupMesh();
-};
+        // initializes all the buffer objects/arrays
+        void setupMesh();
+    };
+}

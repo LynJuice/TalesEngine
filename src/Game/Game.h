@@ -11,9 +11,9 @@
 */
 #include <iostream>
 #include <glm/glm.hpp>
-#include "Graphics/Display.h"
-#include "Graphics/3D/Camera.h"
-#include "ResourceManager.h"
+#include "../Graphics/Display.h"
+#include "../Graphics/3D/Camera.h"
+#include "../ResourceManager.h"
 
 /*
 | Class: Game

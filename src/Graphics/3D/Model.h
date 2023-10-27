@@ -42,45 +42,48 @@
 | @function Rotate - Rotates the model
 | @function Scale - Scales the model
 */
-class Model
+namespace Renderer
 {
-public:
-    // model data 
-    std::vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-    std::vector<Mesh>    meshes;
-    std::string directory;
-    bool gammaCorrection;
-
-    Model::Model(bool gamma = false) : gammaCorrection(gamma) { }; // default constructor
-
-    // constructor, expects a filepath to a 3D model.
-    Model::Model(std::string const& path, bool gamma = false) : gammaCorrection(gamma)
+    class Model
     {
-        loadModel(path);
-    }
+    public:
+        // model data
+        std::vector<Texture> textures_loaded; // stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+        std::vector<Mesh> meshes;
+        std::string directory;
+        bool gammaCorrection;
 
-    // draws the model, and thus all its meshes
-    void Draw(Renderer::Shader& shader, glm::mat4 proj, glm::mat4 view);
+        Model::Model(bool gamma = false) : gammaCorrection(gamma){}; // default constructor
 
-    // Transformations
-    void Translate(glm::vec3 translation);
-    void Rotate(float angle, glm::vec3 axis);
-    void Scale(glm::vec3 scale);
+        // constructor, expects a filepath to a 3D model.
+        Model::Model(std::string const &path, bool gamma = false) : gammaCorrection(gamma)
+        {
+            loadModel(path);
+        }
 
-private:
-    // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    void loadModel(std::string const& path);
+        // draws the model, and thus all its meshes
+        void Draw(Shader &shader, glm::mat4 proj, glm::mat4 view);
 
-    // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
-    void processNode(aiNode* node, const aiScene* scene);
+        // Transformations
+        void Translate(glm::vec3 translation);
+        void Rotate(float angle, glm::vec3 axis);
+        void Scale(glm::vec3 scale);
 
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+    private:
+        // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
+        void loadModel(std::string const &path);
 
-    // checks all material textures of a given type and loads the textures if they're not loaded yet.
-    // the required info is returned as a Texture struct.
-    std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+        // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
+        void processNode(aiNode *node, const aiScene *scene);
 
-    unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
+        Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 
-    glm::mat4 model = glm::mat4(1.0f);
-};
+        // checks all material textures of a given type and loads the textures if they're not loaded yet.
+        // the required info is returned as a Texture struct.
+        std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+
+        unsigned int TextureFromFile(const char *path, const std::string &directory, bool gamma = false);
+
+        glm::mat4 model = glm::mat4(1.0f);
+    };
+}

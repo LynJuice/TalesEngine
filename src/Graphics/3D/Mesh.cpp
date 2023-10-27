@@ -9,7 +9,7 @@
 | @param indices - The indices of the mesh
 | @param textures - The textures of the mesh
 */
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
+Renderer::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
 {
     this->vertices = vertices;
     this->indices = indices;
@@ -26,7 +26,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 |----------------
 | @param shader - The shader to use
 */
-void Mesh::Draw(Renderer::Shader& shader)
+void Renderer::Mesh::Draw(Renderer::Shader& shader)
 {
     // bind appropriate textures
     unsigned int diffuseNr = 1;
@@ -68,7 +68,7 @@ void Mesh::Draw(Renderer::Shader& shader)
 |----------------------
 | Sets up the mesh
 */
-void Mesh::setupMesh()
+void Renderer::Mesh::setupMesh()
 {
     // create buffers/arrays
     glGenVertexArrays(1, &VAO);

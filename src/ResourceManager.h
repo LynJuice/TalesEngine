@@ -19,7 +19,7 @@
 // Static variables
 static std::map<std::string, unsigned int> textures;
 static std::map<std::string, Renderer::Shader> shaders;
-static std::map<std::string, Model> models;
+static std::map<std::string, Renderer::Model> models;
 
 /*
 | Class: ResourceManager
@@ -37,7 +37,7 @@ namespace Resources
     public:
         static unsigned int LoadTexture(std::string path);
         static Renderer::Shader LoadShader(std::string path);
-        static Model LoadModel(std::string path);
+        static Renderer::Model LoadModel(std::string path);
 
     private:
     };

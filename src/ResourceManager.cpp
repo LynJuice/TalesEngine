@@ -98,13 +98,13 @@ Renderer::Shader Resources::ResourceManager::LoadShader(std::string path)
 |---------------------
 | @return - The model
 */
-Model Resources::ResourceManager::LoadModel(std::string path)
+Renderer::Model Resources::ResourceManager::LoadModel(std::string path)
 {
     if (models.find(path) != models.end())
     {
         return models[path];
     }
 
-    models[path] = Model(path);
+    models[path] = Renderer::Model(path);
     return LoadModel(path);
 }

@@ -19,9 +19,9 @@ float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 
 // variables
-const Resources::ResourceManager ResManager;
-Camera camera(0.0f, 0.0f, 3.0f);
-Renderer::Display display(SCR_WIDTH, SCR_HEIGHT, "TalesEngine");
+const static Resources::ResourceManager ResManager;
+static Renderer::Camera camera(0.0f, 0.0f, 3.0f);
+static Renderer::Display display(SCR_WIDTH, SCR_HEIGHT, "TalesEngine");
 
 /*
 | Function: Game
