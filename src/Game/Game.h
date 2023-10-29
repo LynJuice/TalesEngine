@@ -5,15 +5,18 @@
 |------------------
 | iostream - std::cout, std::endl
 | glm - glm.hpp, gtc/matrix_transform.hpp, gtc/type_ptr.hpp
+| vector
 | Display.h
 | Camera.h
 | ResourceManager.h
 */
 #include <iostream>
 #include <glm/glm.hpp>
+#include <vector>
 #include "../Graphics/Display.h"
 #include "../Graphics/3D/Camera.h"
 #include "../ResourceManager.h"
+#include "GameObject.h"
 
 /*
 | Class: Game
@@ -46,6 +49,9 @@ namespace Game
         void render();
         void processInput(GLFWwindow *window);
 
+        GameObject* getGameObjectByName(std::string name);
+
+        const static Resources::ResourceManager ResManager;
     private:
         // timing
         float deltaTime = 0.0f;
@@ -55,5 +61,12 @@ namespace Game
         glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
         glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
         glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+        // display
+        glm::mat4 projection;
+        glm::mat4 view;
+
+        // game objects
+        std::vector<GameObject *> gameObjects;
     };
 }

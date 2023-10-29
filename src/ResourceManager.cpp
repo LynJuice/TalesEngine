@@ -18,11 +18,11 @@
 |---------------------
 | @return - The texture ID
 */
-unsigned int Resources::ResourceManager::LoadTexture(std::string path)
+unsigned int* Resources::ResourceManager::LoadTexture(std::string path)
 {
     if (textures.find(path) != textures.end()) // If texture already exists
     {
-        return textures[path]; // Return texture
+        return &textures[path]; // Return texture
     }
 
     unsigned int texture;
@@ -65,7 +65,7 @@ unsigned int Resources::ResourceManager::LoadTexture(std::string path)
 
     textures[path] = texture; // Add texture to map
 
-    return texture;
+    return &texture;
 }
 
 /*
@@ -77,12 +77,12 @@ unsigned int Resources::ResourceManager::LoadTexture(std::string path)
 |---------------------
 | @return - The shader
 */
-Renderer::Shader Resources::ResourceManager::LoadShader(std::string path)
+Renderer::Shader* Resources::ResourceManager::LoadShader(std::string path)
 {
     // Check if shader has already loaded
     if (shaders.find(path) != shaders.end())
     {
-        return shaders[path];
+        return &shaders[path];
     }
 
     shaders[path] = Renderer::Shader(path); // Add shader to map
@@ -98,13 +98,12 @@ Renderer::Shader Resources::ResourceManager::LoadShader(std::string path)
 |---------------------
 | @return - The model
 */
-Renderer::Model Resources::ResourceManager::LoadModel(std::string path)
+Renderer::Model* Resources::ResourceManager::LoadModel(std::string path)
 {
     if (models.find(path) != models.end())
     {
-        return models[path];
+        return &models[path];
     }
-
     models[path] = Renderer::Model(path);
     return LoadModel(path);
 }

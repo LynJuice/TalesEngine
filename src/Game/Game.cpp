@@ -1,9 +1,12 @@
 #include "Game.h"
 
+// Test Include
+#include "TestObject.h"
+
 // functions
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+void mouse_callback(GLFWwindow *window, double xpos, double ypos);
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 
 // settings
 const unsigned int SCR_WIDTH = 800 * 2;
@@ -19,7 +22,6 @@ float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 
 // variables
-const static Resources::ResourceManager ResManager;
 static Renderer::Camera camera(0.0f, 0.0f, 3.0f);
 static Renderer::Display display(SCR_WIDTH, SCR_HEIGHT, "TalesEngine");
 
@@ -88,7 +90,10 @@ Game::Game::~Game()
 */
 void Game::Game::init()
 {
-
+    // create and add the game objects
+    TestObject *testObject = new TestObject();
+    gameObjects.push_back(testObject);
+    
 }
 
 /*
@@ -99,8 +104,22 @@ void Game::Game::init()
 void Game::Game::update()
 {
     // projection matrix and view matrix
-    glm::mat4 proj = display.getProjection();
-    glm::mat4 view = glm::lookAt(camera.cameraPos, camera.cameraPos + camera.cameraFront, camera.cameraUp);
+    projection = display.getProjection();
+    view = glm::lookAt(camera.cameraPos, camera.cameraPos + camera.cameraFront, camera.cameraUp);
+    for (GameObject *object : gameObjects)
+    {
+        object->update();
+    }
+
+    try
+    {
+        GameObject* testObject = getGameObjectByName("testObject");
+        testObject->model->Rotate(1, glm::vec3(1.0f, 0.0f, 0.0f));
+    }
+    catch (const std::exception&)
+    {
+        std::cout << "Error: Could not find game object with name TestObject" << std::endl;
+    }
 }
 
 /*
@@ -114,6 +133,10 @@ void Game::Game::render()
     glClearColor(0.0f, 0.3f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     // render the game
+    for (GameObject *object : gameObjects)
+    {
+        object->render(view, projection);
+    }
 
     // clear the depth buffer
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -146,8 +169,21 @@ void Game::Game::processInput(GLFWwindow *window)
         camera.cameraPos.y += cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         camera.cameraPos.y -= cameraSpeed;
+
 }
 
+Game::GameObject* Game::Game::getGameObjectByName(std::string name)
+{
+    for (GameObject* object : gameObjects)
+    {
+        if (object->name == name)
+        {
+			return object;
+		}
+	}
+    std::cout << "GameObject with name " << name << " not found" << std::endl;
+	return nullptr;
+}
 
 // callback functions
 
@@ -160,7 +196,7 @@ void Game::Game::processInput(GLFWwindow *window)
 | @param width - The new width of the window
 | @param height - The new height of the window
 */
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
@@ -176,7 +212,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 | @param xpos - The new x position of the mouse
 | @param ypos - The new y position of the mouse
 */
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+void mouse_callback(GLFWwindow *window, double xpos, double ypos)
 {
     if (firstMouse)
     {
@@ -217,7 +253,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 | @param xoffset - The x offset of the scroll
 | @param yoffset - The y offset of the scroll
 */
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
 {
     camera.fov -= (float)yoffset;
     if (camera.fov < 1.0f)

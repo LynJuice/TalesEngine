@@ -36,10 +36,9 @@ namespace Game
     
     }
 
-    void GameObject::render()
-    {
-        
-        model->Draw(*shader, glm::mat4(1.0f), glm::mat4(1.0f));
+    void GameObject::render(glm::mat4 view, glm::mat4 projection)
+    {   
+        model->Draw(*shader, view, projection);
     }
 
     GameObject::~GameObject()

@@ -36,8 +36,8 @@ namespace Resources
     {
     public:
         static unsigned int LoadTexture(std::string path);
-        static Renderer::Shader LoadShader(std::string path);
-        static Renderer::Model LoadModel(std::string path);
+        static Renderer::Shader* LoadShader(std::string path);
+        static Renderer::Model* LoadModel(std::string path);
 
     private:
     };
