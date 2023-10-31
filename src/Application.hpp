@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <algorithm>
 #include <limits>
+#include <fstream>
 
 struct QueueFamilyIndices
 {
@@ -58,6 +59,7 @@ private:
     void pickPhysicalDevice();
     void createLogicalDevice();
     void createImageViews();
+    void createGraphicsPipeline();
     bool checkValidationLayerSupport();
     bool isDeviceSuitable(VkPhysicalDevice device);
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
@@ -68,6 +70,7 @@ private:
     VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR> &availableFormats);
     VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> &availablePresentModes);
     VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
+    VkShaderModule createShaderModule(const std::vector<char>& code);
 
     GLFWwindow *window;
     VkInstance instance;
@@ -83,6 +86,7 @@ private:
 
     std::vector<VkImage> swapChainImages;
     std::vector<VkImageView> swapChainImageViews;
+    static std::vector<char> readFile(const std::string &filename);
 
     const uint32_t WIDTH = 800;
     const uint32_t HEIGHT = 600;
