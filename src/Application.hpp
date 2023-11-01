@@ -48,6 +48,8 @@ public:
         cleanup();
     }
 
+    static std::vector<char> readFile(const std::string& filename);
+
 private:
     void initWindow();
     void initVulkan();
@@ -60,6 +62,13 @@ private:
     void createLogicalDevice();
     void createImageViews();
     void createGraphicsPipeline();
+    void createRenderPass();
+    void createFramebuffers();
+    void createCommandPool();
+    void createCommandBuffers();
+    void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
+    void createSyncObjects();
+    void drawFrame();
     bool checkValidationLayerSupport();
     bool isDeviceSuitable(VkPhysicalDevice device);
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
@@ -83,10 +92,18 @@ private:
     VkSwapchainKHR swapChain;
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkDebugUtilsMessengerEXT debugMessenger;
+    VkRenderPass renderPass;
+    VkPipelineLayout pipelineLayout;
+    VkPipeline graphicsPipeline;
+    VkCommandPool commandPool;
+    VkCommandBuffer commandBuffer;
+    VkSemaphore imageAvailableSemaphore;
+    VkSemaphore renderFinishedSemaphore;
+    VkFence inFlightFence;
 
     std::vector<VkImage> swapChainImages;
     std::vector<VkImageView> swapChainImageViews;
-    static std::vector<char> readFile(const std::string &filename);
+    std::vector<VkFramebuffer> swapChainFramebuffers;
 
     const uint32_t WIDTH = 800;
     const uint32_t HEIGHT = 600;
