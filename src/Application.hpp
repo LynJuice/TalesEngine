@@ -51,6 +51,16 @@ public:
     static std::vector<char> readFile(const std::string& filename);
 
 private:
+    void recreateSwapChain() {
+        vkDeviceWaitIdle(device);
+
+        cleanupSwapchain();
+
+        createSwapChain();
+        createImageViews();
+        createFramebuffers();
+    }
+
     void initWindow();
     void initVulkan();
     void mainLoop();
@@ -66,6 +76,8 @@ private:
     void createFramebuffers();
     void createCommandPool();
     void createCommandBuffers();
+    void cleanupSwapchain();
+    void recreateSwapchain();
     void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
     void createSyncObjects();
     void drawFrame();
@@ -96,22 +108,25 @@ private:
     VkPipelineLayout pipelineLayout;
     VkPipeline graphicsPipeline;
     VkCommandPool commandPool;
-    VkCommandBuffer commandBuffer;
-    VkSemaphore imageAvailableSemaphore;
-    VkSemaphore renderFinishedSemaphore;
-    VkFence inFlightFence;
 
+
+    std::vector<VkSemaphore> imageAvailableSemaphores;
+    std::vector<VkSemaphore> renderFinishedSemaphores;
+    std::vector<VkFence> inFlightFences;
+    
+    std::vector<VkCommandBuffer> commandBuffers;
     std::vector<VkImage> swapChainImages;
     std::vector<VkImageView> swapChainImageViews;
     std::vector<VkFramebuffer> swapChainFramebuffers;
 
+    uint32_t currentFrame = 0;
+
     const uint32_t WIDTH = 800;
     const uint32_t HEIGHT = 600;
     const char *title = "TalesEngine";
+    const int MAX_FRAMES_IN_FLIGHT = 2;
     const std::vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
-
-    const std::vector<const char*> validationLayers = {
-		"VK_LAYER_KHRONOS_validation"};
+    const std::vector<const char*> validationLayers = {"VK_LAYER_KHRONOS_validation"};
 
     #ifdef NDEBUG
 	const bool enableValidationLayers = false;
