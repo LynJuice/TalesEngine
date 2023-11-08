@@ -5,6 +5,11 @@
 #include <GLFW/glfw3.h>
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include <GLFW/glfw3native.h>
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include <chrono>
 #include <vulkan/vulkan.h>
 #include <stdexcept>
 #include <iostream>
@@ -19,58 +24,10 @@
 #include <glm/glm.hpp>
 #include <array>
 
-struct Vertex {
-    glm::vec2 pos;
-    glm::vec3 color;
-
-    static VkVertexInputBindingDescription getBindingDescription() {
-        VkVertexInputBindingDescription bindingDescription{};
-        bindingDescription.binding = 0;
-        bindingDescription.stride = sizeof(Vertex);
-        bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-
-        return bindingDescription;
-    }
-
-    static std::array<VkVertexInputAttributeDescription, 2> getAttributeDescriptions() {
-        std::array<VkVertexInputAttributeDescription, 2> attributeDescriptions{};
-
-        attributeDescriptions[0].binding = 0;
-        attributeDescriptions[0].location = 0;
-        attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
-        attributeDescriptions[0].offset = offsetof(Vertex, pos);
-
-        attributeDescriptions[1].binding = 0;
-        attributeDescriptions[1].location = 1;
-        attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
-        attributeDescriptions[1].offset = offsetof(Vertex, color);
-
-        return attributeDescriptions;
-    }
-};
-
-struct QueueFamilyIndices
-{
-    std::optional<uint32_t> graphicsFamily;
-    std::optional<uint32_t> presentFamily;
-
-    bool isComplete()
-    {
-		return graphicsFamily.has_value();
-    }
-};
-
-struct SwapChainSupportDetails
-{
-	VkSurfaceCapabilitiesKHR capabilities;
-	std::vector<VkSurfaceFormatKHR> formats;
-	std::vector<VkPresentModeKHR> presentModes;
-};
+#include "Helper.hpp"
 
 class Application
 {
-private:
-    /* data */
 public:
     void run()
     {
@@ -79,9 +36,6 @@ public:
         mainLoop();
         cleanup();
     }
-
-    static std::vector<char> readFile(const std::string& filename);
-
 private:
     void recreateSwapChain() {
         vkDeviceWaitIdle(device);
@@ -109,12 +63,27 @@ private:
     void createFramebuffers();
     void createCommandPool();
     void createCommandBuffers();
+    void createDescriptorSetLayout();
+    void createUniformBuffers();
+    void createDescriptorPool();
+    void createDescriptorSets();
+    void createTextureImage();
+    void createTextureImageView();
+    void createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
+    void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
+    void updateUniformBuffer(uint32_t currentImage);
+    void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
     void cleanupSwapchain();
     void recreateSwapchain();
     void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
     void createSyncObjects();
     void drawFrame();
     void createVertexBuffer();
+    void createIndexBuffer();
+    void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
+    void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
+    void endSingleTimeCommands(VkCommandBuffer commandBuffer);
+    void createTextureSampler();
     bool checkValidationLayerSupport();
     bool isDeviceSuitable(VkPhysicalDevice device);
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
@@ -126,6 +95,8 @@ private:
     VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> &availablePresentModes);
     VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
     VkShaderModule createShaderModule(const std::vector<char>& code);
+    VkCommandBuffer beginSingleTimeCommands();
+    VkImageView createImageView(VkImage image, VkFormat format);
 
     GLFWwindow *window;
     VkInstance instance;
@@ -140,10 +111,25 @@ private:
     VkDebugUtilsMessengerEXT debugMessenger;
     VkRenderPass renderPass;
     VkPipelineLayout pipelineLayout;
+    VkDescriptorSetLayout descriptorSetLayout;
     VkPipeline graphicsPipeline;
     VkCommandPool commandPool;
     VkBuffer vertexBuffer;
     VkDeviceMemory vertexBufferMemory;
+    VkBuffer indexBuffer;
+    VkDeviceMemory indexBufferMemory;
+    VkDescriptorPool descriptorPool;
+    VkBuffer stagingBuffer;
+    VkDeviceMemory stagingBufferMemory;
+    VkImage textureImage;
+    VkDeviceMemory textureImageMemory;
+    VkImageView textureImageView;
+    VkSampler textureSampler;
+
+    std::vector<VkDescriptorSet> descriptorSets;
+    std::vector<VkBuffer> uniformBuffers;
+    std::vector<VkDeviceMemory> uniformBuffersMemory;
+    std::vector<void*> uniformBuffersMapped;
 
     std::vector<VkSemaphore> imageAvailableSemaphores;
     std::vector<VkSemaphore> renderFinishedSemaphores;
@@ -158,9 +144,14 @@ private:
     uint32_t currentFrame = 0;
 
     const std::vector<Vertex> vertices = {
-        {{0.0f, -0.5f}, {1.0f, 1.0f, 1.0f}},
-        {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
-        {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+        {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+        {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
+        {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+        {{-0.5f, 0.5f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}
+    };
+
+    const std::vector<uint16_t> indices = {
+    0, 1, 2, 2, 3, 0
     };
 
     const uint32_t WIDTH = 800;
